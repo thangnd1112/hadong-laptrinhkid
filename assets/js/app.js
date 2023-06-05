@@ -84,7 +84,7 @@ function initClient() {
 
       //console.log(gettedToken[0].Zb.access_token);
 
-      // link total url
+      // link của thầy
       var link_total_url =
         "https://docs.google.com/spreadsheets/d/1EuL-eMxd05B1byZtkZcHmXP1sqjq_gqSF7gElStyj9g/edit#gid=0"; //C3
 
