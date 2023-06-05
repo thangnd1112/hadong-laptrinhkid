@@ -48,9 +48,9 @@ function initClient() {
   // 'scope' field specifies space-delimited list of access scopes.
   gapi.client
     .init({
-      apiKey: "AIzaSyAkOofkfB6SnWkc-9Cd_hDW1liY-pa74G8", //C1
+      apiKey: "AIzaSyB6eSxqgER91uGpA4i6H1dF8eXyUU2RKz4", //C1
       clientId:
-        "512677808993-fqbc14m6c6vu78dgggd2rtd1bfm1i003.apps.googleusercontent.com", //C2
+        "813376710260-taq6rj3ign28567ptun19idc0b0ck147.apps.googleusercontent.com", //C2
       // for test
       // apiKey: "AIzaSyAkOofkfB6SnWkc-9Cd_hDW1liY-pa74G8",
       // clientId:
