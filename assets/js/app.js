@@ -3,34 +3,49 @@
 var GoogleAuth;
 var SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 var gettedToken = [];
+var client;
+var access_token;
+
+
+function initToken() {
+  client = google.accounts.oauth2.initTokenClient({
+    client_id:
+      "813376710260-taq6rj3ign28567ptun19idc0b0ck147.apps.googleusercontent.com",
+    scope: SCOPE,
+    callback: (tokenResponse) => {
+      access_token = tokenResponse.access_token;
+    },
+  });
+}
+function getToken() {
+  client.requestAccessToken();
+  $("#loginGg").text("Sau khi Login thành công, click nút Run");
+}
+function revokeToken() {
+  google.accounts.oauth2.revoke(access_token, () => {
+    console.log("access token revoked");
+  });
+}
+
 
 function resets() {
   window.location.reload();
 }
 
-function handleClientLoad() {
-  // Load the API's client and auth2 modules.
-  // Call the initClient function after the modules load.
-  gapi.load("client:auth2", initClient);
-}
 
 function getApi(url) {
   var patt = /\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/;
   var key = url.match(patt);
-  // console.log(gettedToken[0]);
+  // console.log("test token: ", access_token);
   // link của thầy
-    var arrHasAccessToken = '';
-    arrHasAccessToken = gettedToken[0][Object.keys(gettedToken[0])[1]]
-    if (typeof arrHasAccessToken == "undefined") {
-      $(".popup").show();
-      $(".popup p").html("Access token không hợp lệ!");
-      $(".popup button").hide();
-    }
+    // var arrHasAccessToken = '';
+    // arrHasAccessToken = gettedToken[0][Object.keys(gettedToken[0])[1]]
+    
     var url_api =
       "https://sheets.googleapis.com/v4/spreadsheets/" +
       key[1] +
       "/values/Trang%20tính1?alt=json&access_token=" +
-      arrHasAccessToken.access_token;
+      access_token;
     return url_api;
   // var url_api = "https://sheets.googleapis.com/v4/spreadsheets/" + key[1] + "/values/Sheet1?alt=json&access_token=" + gettedToken[0].Zb.access_token;
   // console.log(gettedToken[0]);
@@ -46,40 +61,10 @@ function initClient() {
   // Initialize the gapi.client object, which app uses to make API requests.
   // Get API key and client ID from API Console.
   // 'scope' field specifies space-delimited list of access scopes.
-  gapi.client
-    .init({
-      apiKey: "AIzaSyB6eSxqgER91uGpA4i6H1dF8eXyUU2RKz4", //C1
-      clientId:
-        "813376710260-taq6rj3ign28567ptun19idc0b0ck147.apps.googleusercontent.com", //C2
-      // for test
-      // apiKey: "AIzaSyAkOofkfB6SnWkc-9Cd_hDW1liY-pa74G8",
-      // clientId:
-      //   "512677808993-fqbc14m6c6vu78dgggd2rtd1bfm1i003.apps.googleusercontent.com",
-      discoveryDocs: [discoveryUrl],
-      scope: SCOPE,
-    })
-    .then(function () {
-      GoogleAuth = gapi.auth2.getAuthInstance();
-
-      // Listen for sign-in state changes.
-      GoogleAuth.isSignedIn.listen(updateSigninStatus);
-
-      // Handle initial sign-in state. (Determine if user is already signed in.)
-      var user = GoogleAuth.currentUser.get();
-      setSigninStatus();
-
-      gettedToken.push(user);
-      // console.log(user.Zb.access_token);
-
-      // Call handleAuthClick function when user clicks on
-      //      "Sign In/Authorize" button.
-      $("#sign-in-or-out-button").click(function () {
-        handleAuthClick();
-      });
-      $("#revoke-access-button").click(function () {
-        revokeAccess();
-      });
-
+  // gapi.client
+   
+    
+    
       //==================================================================================================================
 
       //console.log(gettedToken[0].Zb.access_token);
@@ -133,8 +118,8 @@ function initClient() {
           callAPIOnInterval(5, allTrackingUrl, pushArr);
         });
       }
-    });
-}
+    };
+
 // select class type
 // localStorage.setItem("classType", 0);
 // console.log(localStorage.getItem("classType"));

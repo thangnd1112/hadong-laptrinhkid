@@ -5,16 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/css/style_test.css" />
+
     <title>Hà Đông - Lập Trình Kid</title>
   </head>
 
   <body>
     <div class="d-flex">
       <div class="left">
-        <button onclick="resets()">Reload</button>
-        <button id="sign-in-or-out-button" style="margin-left: 25px">
-          Sign In/Authorize
-        </button>
+        <button id="loginGg" onclick="getToken();">Login</button>
+        <button onclick="initClient();" style="margin-left: 25px">Run</button>
+
         <div id="auth-status" style="display: inline; padding-left: 25px"></div>
         <hr />
 
@@ -30,10 +30,6 @@
       </div>
 
       <div class="right">
-        <!-- <label for="ltk">LTK</label>
-      <input type="radio" name="classType" id="ltk">
-      <label for="hvcg">HVCG</label>
-      <input type="radio" name="classType" id="hvcg"> -->
         <select name="classType" id="classType">
           <option value="0">All</option>
           <option value="1">Lap trinh KID</option>
@@ -571,13 +567,12 @@
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/app.min.js"></script>
     <script
+      src="https://accounts.google.com/gsi/client"
+      onload="initToken()"
       async
       defer
-      src="https://apis.google.com/js/api.js"
-      onload="this.onload=function(){};handleClientLoad()"
-      onreadystatechange="if (this.readyState === 'complete') this.onload()"
     ></script>
   </body>
 </html>
